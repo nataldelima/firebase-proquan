@@ -1,0 +1,50 @@
+<h1 class="text-center">Cadastrar Grupos de Campo</h1>
+<form id="grupo-form" hx-post="/grupo" novalidate>
+    <div class="row mb-3">
+        <div class="col-4">
+            <label for="numero" class="form-label">Nro:</label>
+            <input type="number" id="numero" name="numero" class="form-control" required>
+        </div>
+        <div class="col-8">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <label for="supte" class="form-label">Supte do Grupo:</label>
+            <select class="form-select" name="supte" id="supte" class="form-control" required></select>
+        </div>
+        <div class="col-6">
+            <label for="ajudante" class="form-label">Ajudante:</label>
+            <select class="form-select" name="ajudante" id="ajudante" class="form-control" required></select>
+        </div>
+    </div>
+    <div class="col-6">
+        <label for="congregacao" class="form-label">Congregação:</label>
+        <select class="form-select" name="ajudante" id="ajudante" class="form-control" required>
+
+
+        </select>
+    </div>
+    </div>
+    <div class="row mb-3 justify-content-center">
+        <div class=" col-2 text-end">
+            <button type="submit" class="btn btn-dark btn-lg">Salvar</button>
+        </div>
+        <div class="col-2 text-start">
+            <button type="button" id="cancelar" hx-get="/templates/grupos/list.html" hx-target="#app"
+                class="btn btn-outline-secondary btn-lg" hx-trigger="click">Cancelar</button>
+
+        </div>
+</form>
+
+
+</div>
+
+
+<div id="form-message"></div>
+
+<script type="module" src="./../../js/grupos.js"></script>
+<script type="module" src="./../../js/loadCongregacoes.js"></script>

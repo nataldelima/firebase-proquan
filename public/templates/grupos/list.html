@@ -1,0 +1,21 @@
+<h1 class="text-center">Lista de Grupos de Campo</h1>
+<div class="row m-3">
+    <div class="col"><a hx-get="/templates/grupos/form.html" hx-target="#app" class="btn btn-outline-success"><i
+                class="bi bi-house-add"></i> Novo Grupo</a></div>
+</div>
+<table class=" table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Grupo</th>
+            <th>Supte</th>
+            <th>Ajudante</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="grupos-list">
+        <!-- Os dados serão inseridos aqui dinamicamente -->
+    </tbody>
+</table>
+
+<script type="module" src="./../../js/listar-grupos.js"></script>

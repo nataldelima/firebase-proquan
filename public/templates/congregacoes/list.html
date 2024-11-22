@@ -1,0 +1,20 @@
+<h1 class="text-center">Lista de Congregações</h1>
+<div class="row m-3">
+    <div class="col"><a hx-get="/templates/congregacoes/form.html" hx-target="#app" class="btn btn-outline-success"><i
+                class="bi bi-house-add"></i> Nova Congregação</a></div>
+</div>
+<table class=" table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Nome</th>
+            <th>Circuito</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="congregacoes-list">
+        <!-- Os dados serão inseridos aqui dinamicamente -->
+    </tbody>
+</table>
+
+<script type="module" src="./../../js/listar-congregacoes.js"></script>

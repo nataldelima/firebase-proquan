@@ -1,0 +1,52 @@
+<h1 class="text-center">Cadastrar Congregação</h1>
+<form id="congregacao-form" hx-post="/congregacao" novalidate>
+    <div class="row mb-3">
+        <div class="col-4">
+            <label for="numero" class="form-label">Nro:</label>
+            <input type="number" id="numero" name="numero" class="form-control" required>
+        </div>
+        <div class="col-8">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" id="nome" name="nome" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label for="endereco" class="form-label">Endereço:</label>
+            <textarea name="endereco" id="endereco" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-3">
+            <label for="circuito" class="form-label">Circuito:</label>
+            <input type="text" id="circuito" name="circuito" class="form-control" required>
+        </div>
+        <div class="col-6">
+            <label for="supte_circuito" class="form-label">Supte de Circuito:</label>
+            <input type="text" id="supte_circuito" name="supte_circuito" class="form-control" required>
+        </div>
+        <div class="col-3">
+            <label for="telefone_supte_circuito" class="form-label">Telefone do Supte de Circuito:</label>
+            <input type="tel" id="telefone_supte_circuito" name="telefone_supte_circuito" class="form-control" required>
+        </div>
+    </div>
+    <div class="row mb-3 justify-content-center">
+        <div class=" col-2 text-end">
+            <button type="submit" class="btn btn-dark btn-lg">Salvar</button>
+        </div>
+        <div class="col-2 text-start">
+            <button type="button" id="cancelar" hx-get="/templates/congregacoes/list.html" hx-target="#app"
+                class="btn btn-outline-secondary btn-lg" hx-trigger="click">Cancelar</button>
+
+        </div>
+</form>
+
+
+</div>
+
+
+<div id="form-message"></div>
+
+<script type="module" src="./../../js/congregacoes.js"></script>

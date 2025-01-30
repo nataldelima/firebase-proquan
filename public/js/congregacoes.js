@@ -1,7 +1,9 @@
-import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-import { db } from "./firebase-config.js";
+import { addDoc, collection, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { db } from "/src/firebase/firebase-config.js";
 
-// Função auxiliar para exibir mensagens
+// ==============================================
+// Módulo: Helpers
+// ==============================================
 function showMessage(message, type = 'error') {
     // Procura primeiro o elemento de mensagem dentro do container do app
     const appContainer = document.getElementById("app");
@@ -36,6 +38,104 @@ function showMessage(message, type = 'error') {
         }, 5000);
     }
 }
+
+
+async function listarCongregacoes() {
+    const listaElement = document.getElementById("congregacoes-list");
+
+    try {
+        // Obter a coleção "congregacoes" do Firestore
+        const querySnapshot = await getDocs(collection(db, "congregacoes"));
+
+        // Limpar lista existente antes de preencher
+        listaElement.innerHTML = "";
+
+        // Adicionar cada documento à tabela
+        let index = 1; // Contador para exibição de índice
+        querySnapshot.forEach((doc) => {
+            const congregacao = doc.data();
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+    <td>${congregacao.numero}</td>
+    <td>${congregacao.nome}</td>
+    <td>${congregacao.circuito}</td>
+    <td class="text-center">
+        <button class="btn btn-outline-primary me-2">
+            <i class="bi bi-pencil-square"></i> Editar
+        </button>
+        <button data-id="${doc.id}" class="btn btn-outline-danger btn-delete">
+            <i class="bi bi-trash2"></i> Excluir
+        </button>
+    </td>
+`;
+
+            listaElement.appendChild(row);
+            index++;
+        });
+
+        if (index === 1) {
+            // Nenhuma congregação encontrada
+            listaElement.innerHTML = `
+                <tr>
+                    <td colspan="3" class="text-center">Nenhuma congregação cadastrada.</td>
+                </tr>
+            `;
+        }
+    } catch (error) {
+        console.error("Erro ao listar congregações:", error);
+        listaElement.innerHTML = `
+            <tr>
+                <td colspan="3" class="text-center text-danger">Erro ao carregar as congregações.</td>
+            </tr>
+        `;
+    }
+}
+
+
+
+// Deletar congregação
+
+// congregacoes.js
+
+document.addEventListener('click', async (event) => {
+    if (event.target.closest('.btn-delete')) {
+        const button = event.target.closest('.btn-delete');
+        const id = button.dataset.id;
+
+        if (confirm("Confirma a exclusão?")) {
+            try {
+                await deleteDoc(doc(db, "congregacoes", id));
+                showMessage("Congregação excluída com sucesso!", "success");
+                await listarCongregacoes(); // Atualiza a lista após exclusão
+            } catch (error) {
+                showMessage(`Erro: ${error.message}`, "error");
+            }
+        }
+    }
+});
+
+
+
+
+// Inicializa a listagem quando o documento carregar
+document.addEventListener('DOMContentLoaded', listarCongregacoes);
+
+// Adiciona um listener para quando o HTMX carregar novo conteúdo
+document.body.addEventListener('htmx:afterOnLoad', function (event) {
+    // Verifica se o conteúdo carregado contém a lista de congregações
+    if (event.detail.elt.querySelector('#congregacoes-list')) {
+        listarCongregacoes();
+    }
+});
+
+// Chamar a função ao carregar a página
+listarCongregacoes();
+
+
+
+
+
 
 // Função para inicializar o formulário
 function initializeForm() {
@@ -89,10 +189,15 @@ function initializeForm() {
     }
 }
 
-// Inicializa o formulário quando o documento carregar
-document.addEventListener('DOMContentLoaded', initializeForm);
+let isInitialized = false;
 
-// Adiciona um listener para quando o HTMX carregar novo conteúdo
-document.body.addEventListener('htmx:afterOnLoad', function () {
-    initializeForm();
-});
+function init() {
+    if (!isInitialized) {
+        initializeForm();
+        listarCongregacoes();
+        isInitialized = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+document.body.addEventListener('htmx:afterSwap', init);

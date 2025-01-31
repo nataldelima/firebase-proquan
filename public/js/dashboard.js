@@ -1,11 +1,15 @@
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { auth } from "../../src/firebase/firebase-config.js";
+import { auth } from "/src/firebase/firebase-config.js";
 
-// Proteger a página
+// Proteger a página e exibir nome do usuário
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        // Se não estiver logado, redireciona para o login
         window.location.href = "/index.html";
+    } else {
+        const userElement = document.querySelector('.nav-link.dropdown-toggle b');
+        if (userElement) {
+            userElement.textContent = user.displayName || user.email.split('@')[0];
+        }
     }
 });
 

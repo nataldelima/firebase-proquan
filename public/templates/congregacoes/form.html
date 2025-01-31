@@ -1,6 +1,7 @@
 <div>
-    <h1 class="text-center">Cadastrar Congregação</h1>
-    <form id="congregacao-form" hx-post="/congregacao" novalidate>
+    <!-- Altere o título para um texto genérico -->
+    <h1 class="text-center" id="form-title">Cadastrar Congregação</h1>
+    <form id="congregacao-form" hx-post="/congregacao">
         <div class="row mb-3">
             <div class="col-4">
                 <label for="numero" class="form-label">Nro:</label>
@@ -34,20 +35,21 @@
                     required>
             </div>
         </div>
+
         <div class="row mb-3 justify-content-center">
-            <div class=" col-2 text-end">
+            <div class="col-2 text-end">
                 <button type="submit" class="btn btn-dark btn-lg">Salvar</button>
             </div>
-    </form>
+            <div class="col-2 text-start">
+                <button type="button" id="cancelar" class="btn btn-outline-secondary btn-lg"
+                    hx-get="/templates/congregacoes/list.html" hx-target="#app">
+                    Cancelar
+                </button>
+            </div>
+        </div>
 
-    <div class="col-2 text-start">
-        <button type="button" id="cancelar" class="btn btn-outline-secondary btn-lg" hx-trigger="click"
-            hx-get="/templates/congregacoes/list.html" hx-target="#app" hx-swap="innerHTML settle:0.5s"
-            formnovalidate>Cancelar</button>
-    </div>
+    </form>
 </div>
 
 
 <div id="form-message" class="alert mt-3" style="display: none;"></div>
-
-<script type="module" src="/js/congregacoes.js"></script>

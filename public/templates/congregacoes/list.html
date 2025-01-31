@@ -3,17 +3,21 @@
     <div class="col"><a hx-get="/templates/congregacoes/form.html" hx-target="#app" class="btn btn-outline-success"><i
                 class="bi bi-house-add"></i> Nova Congregação</a></div>
 </div>
-<table class=" table table-striped mt-4">
+<table class="table table-striped mt-4">
     <thead>
         <tr>
             <th>Número</th>
             <th>Nome</th>
             <th>Circuito</th>
-            <th>Ações</th>
+            <th class="text-center">Ações</th> <!-- Adicione class text-center -->
         </tr>
     </thead>
+    <!-- Garanta que o container principal tem o ID correto -->
     <tbody id="congregacoes-list">
-        <!-- Os dados serão inseridos aqui dinamicamente -->
+        <!-- Estado inicial de carregamento -->
+        <tr>
+            <td colspan="4" class="text-center">Carregando congregações...</td>
+        </tr>
     </tbody>
 </table>
 
